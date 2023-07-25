@@ -2,6 +2,7 @@ package com.example.kioskproject
 
 
 fun main() {
+
     println("안녕하세요? 투썸플레이스입니다.\n")
     Order().startOrder()
 }
@@ -37,7 +38,10 @@ class Order {
                     )
                 }
             } catch (e: java.lang.NumberFormatException) {
-                println("메뉴 주문은 숫자만 입력할 수 있습니다. \n----------------------------------\n")
+                println(
+                    "메뉴 주문은 숫자만 입력할 수 있습니다.\n"
+                            + "----------------------------------\n"
+                )
             }
         }
 
