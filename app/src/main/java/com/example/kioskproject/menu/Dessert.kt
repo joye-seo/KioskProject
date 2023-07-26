@@ -9,7 +9,7 @@ import com.example.kioskproject.totalMenu
 class Dessert : Common() {
     override fun displayInfo() {
 
-        val list = listOf(
+        val dessertList = mutableListOf(
             MenuItem(1, "허니브레드", 8000),
             MenuItem(2, "치즈케이크", 8500),
             MenuItem(3, "딸기케이크", 8500),
@@ -18,22 +18,22 @@ class Dessert : Common() {
 
         while (true) {
 
-            for ((a, b, c) in list) {
+            for ((a, b, c) in dessertList) {
                 println("$a. $b $c")
             }
 
-            println("5. 뒤로가기")
+            println("0. 뒤로가기")
 
             try {
                 val num = readLine()?.toInt()
 
-                if (num == 5) {
+                if (num == 0) {
                     Menu().mainMenuList()
                     break
                 } else {
-                    detailMenu = list[num?.minus(1)!!].name
+                    detailMenu = dessertList[num?.minus(1)!!].name
                     totalMenu.add(detailMenu)
-                    detailCharge += list[num - 1].charge
+                    detailCharge += dessertList[num - 1].charge
 
                     println("\n$detailMenu 를 장바구니에 넣었습니다\n")
                 }
