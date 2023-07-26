@@ -6,6 +6,7 @@ import com.example.kioskproject.menu.Dessert
 import com.example.kioskproject.menu.NonCoffee
 import com.example.kioskproject.menu.Smoothie
 import com.example.kioskproject.menu.Tea
+import kotlin.system.exitProcess
 
 class Menu() {
     fun mainMenuList() {
@@ -19,7 +20,8 @@ class Menu() {
                         "4. Smoothie\n" +
                         "5. Tea\n" +
                         "6. Dessert\n" +
-                        "7. 프로그램 종료"
+                        "7. 계산하기\n" +
+                        "8. 프로그램 종료"
             )
 
             try {
@@ -53,6 +55,15 @@ class Menu() {
                     6 -> {
                         Dessert().displayInfo()
                         break
+                    }
+
+                    7 -> {
+                        Basket().payment()
+                        break
+                    }
+
+                    8 -> {
+                        exitProcess(0)
                     }
 
                     else -> println(

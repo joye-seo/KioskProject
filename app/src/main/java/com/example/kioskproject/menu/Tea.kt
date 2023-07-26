@@ -1,9 +1,10 @@
 package com.example.kioskproject.menu
 
-import com.example.kioskproject.Basket
+import com.example.kioskproject.Menu
 import com.example.kioskproject.MenuItem
+import com.example.kioskproject.detailCharge
 import com.example.kioskproject.detailMenu
-import com.example.kioskproject.totalCharge
+import com.example.kioskproject.totalMenu
 
 class Tea : Common() {
     override fun displayInfo() {
@@ -15,24 +16,44 @@ class Tea : Common() {
             MenuItem(5, "녹차(Hot)", 5500),
             MenuItem(6, "녹차(Ice)", 6000)
         )
-        for ((a, b, c) in list) {
-            println("$a. $b $c")
-        }
-        try {
-            while (true) {
-                val num = readLine()?.toInt()
-                detailMenu = list[num?.minus(1)!!].name //코드 수정해보기
-                totalCharge = list[num - 1].charge //코드 수정해보기
-                break
+        while (true) {
+
+            for ((a, b, c) in list) {
+                println("$a. $b $c")
             }
 
-        } catch (e: java.lang.NumberFormatException) {
-            println(
-                "메뉴 주문은 숫자만 입력할 수 있습니다.\n"
-                        + "----------------------------------\n"
-            )
+            println("7. 뒤로가기")
+
+            try {
+                val num = readLine()?.toInt()
+
+                if (num == 7) {
+                    Menu().mainMenuList()
+                    break
+                } else {
+                    detailMenu = list[num?.minus(1)!!].name
+                    totalMenu.add(detailMenu)
+                    detailCharge += list[num - 1].charge
+
+                    println("\n$detailMenu 를 장바구니에 넣었습니다\n")
+                }
+
+//                Basket().payment()
+//                break
+
+            } catch (e: java.lang.NumberFormatException) {
+                println(
+                    "메뉴 주문은 숫자만 입력할 수 있습니다.\n"
+                            + "----------------------------------\n"
+                )
+            } catch (e: ArrayIndexOutOfBoundsException) {
+                println(
+                    "올바르지 않은 번호입니다. 다시 입력해주세요.\n"
+                            + "----------------------------------\n"
+                )
+            }
         }
-        Basket().payment()
+
     }
 
 }

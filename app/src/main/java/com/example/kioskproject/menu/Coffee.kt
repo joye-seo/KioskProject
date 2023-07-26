@@ -1,9 +1,10 @@
 package com.example.kioskproject.menu
 
-import com.example.kioskproject.Basket
+import com.example.kioskproject.Menu
 import com.example.kioskproject.MenuItem
+import com.example.kioskproject.detailCharge
 import com.example.kioskproject.detailMenu
-import com.example.kioskproject.totalCharge
+import com.example.kioskproject.totalMenu
 
 class Coffee : Common() {
     override fun displayInfo() {
@@ -14,20 +15,31 @@ class Coffee : Common() {
             MenuItem(4, "카페라떼(Hot)", 4000),
             MenuItem(5, "카페라떼(Ice)", 4500),
             MenuItem(6, "카푸치노(Hot)", 4000),
-            MenuItem(7, "카푸치노(Ice)", 4500)
+            MenuItem(7, "카푸치노(Ice)", 4500),
         )
         while (true) {
 
             for ((a, b, c) in list) {
                 println("$a. $b $c")
             }
+            println("8. 뒤로가기")
 
             try {
                 val num = readLine()?.toInt()
-                detailMenu = list[num?.minus(1)!!].name
-                totalCharge = list[num - 1].charge
-                Basket().payment()
-                break
+
+                if (num == 8) {
+                    Menu().mainMenuList()
+                    break
+                } else {
+                    detailMenu = list[num?.minus(1)!!].name
+                    totalMenu.add(detailMenu)
+                    detailCharge += list[num - 1].charge
+
+                    println("\n$detailMenu 를 장바구니에 넣었습니다\n")
+                }
+
+//                Basket().payment()
+//                break
 
             } catch (e: java.lang.NumberFormatException) {
                 println(
@@ -40,6 +52,7 @@ class Coffee : Common() {
                             + "----------------------------------\n"
                 )
             }
+
         }
     }
 

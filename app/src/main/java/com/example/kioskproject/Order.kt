@@ -1,15 +1,20 @@
 package com.example.kioskproject
 
+import kotlin.system.exitProcess
+
 
 fun main() {
 
+MyPocket().money()
     println("안녕하세요? 투썸플레이스입니다.\n")
     Order().startOrder()
 }
 
 lateinit var method: String
 lateinit var detailMenu: String
-var totalCharge: Int = 0
+var totalMenu: MutableList<String> = mutableListOf()
+var detailCharge: Int = 0
+var pocketMoney = 0
 
 class Order {
     fun startOrder() {
@@ -29,7 +34,7 @@ class Order {
 
                     2 -> {
                         println("프로그램 종료")
-                        System.exit(0)
+                        exitProcess(0)
                     }
 
                     else -> println(
