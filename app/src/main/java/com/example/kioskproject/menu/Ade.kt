@@ -10,7 +10,7 @@ class Ade : Common() {
     override fun displayInfo() {
         val list = listOf(
             MenuItem(1, "레몬에이드", 5000),
-            MenuItem(2, "레몬에이드", 5000),
+            MenuItem(2, "자몽에이드", 5000),
             MenuItem(3, "딸기에이드", 5000),
             MenuItem(4, "블루베리에이드", 5500)
         )
