@@ -19,13 +19,12 @@ class UseCafe() {
                 when (readLine()?.toInt()) {
                     1 -> {
                         method = "매장식사"
-                        Menu().mainMenuList()
+                        Menu(1,"")
                         break
                     }
 
                     2 -> {
                         method = "포장하기"
-                        Menu().mainMenuList()
                         break
                     }
 
