@@ -2,16 +2,7 @@ package com.example.kioskproject
 
 import kotlin.system.exitProcess
 
-data class MenuItem(
-    var id: Int,
-    var name: String,
-    var charge: Int
-)
 
-fun main() {
-    println("안녕하세요? 투썸플레이스입니다.\n")
-    CafeKiosk().start()
-}
 
 class CafeKiosk {
     private val menuItems = mapOf(
@@ -49,7 +40,6 @@ class CafeKiosk {
         5 to listOf(
             MenuItem(1, "복숭아아이스티(Ice)", 4000),
             MenuItem(2, "레몬아이스티(Ice)", 4000),
-
         ),
         6 to listOf(
             MenuItem(1, "아이스크림크로플", 6500),
@@ -57,16 +47,15 @@ class CafeKiosk {
             MenuItem(2, "스트로베리 초콜릿 생크림", 36000),
             MenuItem(2, "스트로베리 티라미수", 34000),
             MenuItem(2, "딸기그뤼에르치즈무스", 38000),
-        ),
-        // 나머지 메뉴들도 같은 방식으로 추가
+        )
+        // 메뉴 추가할 때
     )
 
     private val menuCategories = listOf(
         "Coffee", "Non-Coffee", "Ade", "Smoothie", "Tea", "Dessert"
     )
 
-    private var method: String = ""
-    private var detailMenu: String = ""
+    private var method: CafeMethod = CafeMethod.Exit
     private var orderList: MutableMap<MenuItem, Int> = mutableMapOf()
     private var totalCharge: Int = 0
 
@@ -103,12 +92,12 @@ class CafeKiosk {
 
             when (readLine()?.toIntOrNull()) {
                 1 -> {
-                    method = "매장식사"
+                    method = CafeMethod.DineIn
                     showMainMenu()
                     break
                 }
                 2 -> {
-                    method = "포장하기"
+                    method = CafeMethod.TakeOut
                     showMainMenu()
                     break
                 }
@@ -163,10 +152,7 @@ class CafeKiosk {
                 break
             } else if (menuNumber in 1..menuList.size) {
                 val selectedMenu = menuList[menuNumber - 1]
-                detailMenu = selectedMenu.name
                 totalCharge += selectedMenu.charge
-
-                // 주문한 메뉴추가
                 orderList[selectedMenu] = (orderList[selectedMenu] ?: 0) + 1
             } else {
                 println("올바르지 않은 번호입니다. 다시 입력해주세요.")
@@ -174,11 +160,10 @@ class CafeKiosk {
         }
     }
 
-
     private fun showOrderSummary() {
         println("----------------------------------")
         println("주문 내역")
-        println("이용 방법: $method")
+        println("이용 방법: ${method.method}")
 
         if (orderList.isEmpty()) {
             println("주문한 메뉴가 없습니다.")
@@ -194,5 +179,4 @@ class CafeKiosk {
         orderList.clear()
         totalCharge = 0
     }
-
 }

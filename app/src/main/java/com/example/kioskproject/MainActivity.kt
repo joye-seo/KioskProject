@@ -3,9 +3,8 @@ package com.example.kioskproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
+fun main() {
+    println("안녕하세요? 투썸플레이스입니다.\n")
+    val cafeKiosk = CafeKiosk()
+    cafeKiosk.start()
 }
