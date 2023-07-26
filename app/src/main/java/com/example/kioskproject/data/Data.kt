@@ -1,12 +1,10 @@
-package com.example.kioskproject
+package com.example.kioskproject.data
 
 data class Menu(
-    var id: Int,
     var name: String,
 )
 
 data class Item(
-    var id: Int,
     var name: String,
     var charge: Int
 )
