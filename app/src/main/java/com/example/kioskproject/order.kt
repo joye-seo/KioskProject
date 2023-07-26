@@ -67,6 +67,7 @@ class CafeKiosk {
 
     private var method: String = ""
     private var detailMenu: String = ""
+    private var orderList: MutableMap<MenuItem, Int> = mutableMapOf()
     private var totalCharge: Int = 0
 
     fun start() {
@@ -164,18 +165,34 @@ class CafeKiosk {
                 val selectedMenu = menuList[menuNumber - 1]
                 detailMenu = selectedMenu.name
                 totalCharge += selectedMenu.charge
+
+                // 주문한 메뉴추가
+                orderList[selectedMenu] = (orderList[selectedMenu] ?: 0) + 1
             } else {
                 println("올바르지 않은 번호입니다. 다시 입력해주세요.")
             }
         }
     }
 
+
     private fun showOrderSummary() {
         println("----------------------------------")
         println("주문 내역")
         println("이용 방법: $method")
-        println("메뉴: $detailMenu")
-        println("총 결제 금액: $totalCharge 원")
-        totalCharge = 0 // 주문 내역 출력 후 초기화
+
+        if (orderList.isEmpty()) {
+            println("주문한 메뉴가 없습니다.")
+        } else {
+            for ((menuItem, count) in orderList) {
+                println("${menuItem.name} - $count 개")
+            }
+            println("총 결제 금액: $totalCharge 원")
+        }
+
+        println("----------------------------------")
+
+        orderList.clear()
+        totalCharge = 0
     }
+
 }
