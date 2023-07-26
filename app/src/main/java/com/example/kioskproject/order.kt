@@ -32,6 +32,32 @@ class CafeKiosk {
             MenuItem(5, "고구마라떼(Hot)", 4500),
             MenuItem(6, "고구마라떼(Ice)", 5000)
         ),
+        3 to listOf(
+            MenuItem(1, "복숭아에이드(Ice)", 6000),
+            MenuItem(2, "레몬셔벗에이드(Ice)", 6500),
+            MenuItem(3, "오렌지에이드(Ice)", 5500),
+            MenuItem(4, "자몽에이드(Ice)", 5500),
+            MenuItem(5, "샤인머스켓에이드(Ice)", 6500),
+        ),
+        4 to listOf(
+            MenuItem(1, "망고스무디(Ice)", 5000),
+            MenuItem(2, "요거트프라페(Ice)", 5500),
+            MenuItem(2, "밀크쉐이크(Ice)", 5500),
+            MenuItem(2, "민트초코프라페(Ice)", 5500),
+            MenuItem(2, "요거트스무디(Ice)", 5500),
+        ),
+        5 to listOf(
+            MenuItem(1, "복숭아아이스티(Ice)", 4000),
+            MenuItem(2, "레몬아이스티(Ice)", 4000),
+
+        ),
+        6 to listOf(
+            MenuItem(1, "아이스크림크로플", 6500),
+            MenuItem(2, "치즈크로플", 5100),
+            MenuItem(2, "스트로베리 초콜릿 생크림", 36000),
+            MenuItem(2, "스트로베리 티라미수", 34000),
+            MenuItem(2, "딸기그뤼에르치즈무스", 38000),
+        ),
         // 나머지 메뉴들도 같은 방식으로 추가
     )
 
@@ -106,7 +132,7 @@ class CafeKiosk {
             if (categoryIndex in 1..menuCategories.size) {
                 val menuCategory = menuCategories[categoryIndex - 1]
                 val menuList = menuItems[categoryIndex]
-                showMenuList(menuCategory, menuList!!)
+                showMenuList(menuCategory, menuList)
                 break
             } else {
                 println("올바르지 않은 번호입니다. 다시 입력해주세요.")
@@ -114,7 +140,12 @@ class CafeKiosk {
         }
     }
 
-    private fun showMenuList(category: String, menuList: List<MenuItem>) {
+    private fun showMenuList(category: String, menuList: List<MenuItem>?) {
+        if (menuList == null) {
+            println("메뉴가 없습니다.")
+            return
+        }
+
         while (true) {
             println("----- $category 메뉴 -----")
 
@@ -145,5 +176,6 @@ class CafeKiosk {
         println("이용 방법: $method")
         println("메뉴: $detailMenu")
         println("총 결제 금액: $totalCharge 원")
+        totalCharge = 0 // 주문 내역 출력 후 초기화
     }
 }
