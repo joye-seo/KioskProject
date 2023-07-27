@@ -287,7 +287,7 @@ class UseCafe() {
                         }
                     }
 
-                    7 -> Cart().payment()
+                    7 -> ShoppingCart().cart()
 
                     else -> println(
                         "올바르지 않은 번호입니다. 다시 입력해주세요.\n"
