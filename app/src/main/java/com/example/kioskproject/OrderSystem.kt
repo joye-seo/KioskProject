@@ -5,6 +5,49 @@ open class OrderSystem() {
     val menuCategory = MenuCategory()
     val cartItem = mutableListOf<MenuItem>()
 
+    fun readAmount() : Int {
+        while(true) {
+            println("현재 가지고 있는 금액을 입력하세요.")
+            var charge = readLine()?.toIntOrNull()
+            if (charge != null) {
+                return charge
+                break
+            } else {
+                println("잘못 입력하셨습니다. 다시 입력해주세요.")
+            }
+        }
+    }
+
+    fun checkoutPayment(totalPrice:Int): Boolean {
+        while(true){
+            print("결제를 진행하시겠습니까? (Y/N) : ")
+            val pay = readLine().toString()
+            if(pay.equals("Y", true))
+            {
+                println("\n------------ 영 수 증 -----------------")
+                cartItem.forEach{ item ->
+                    println("${item.name} | ${item.price}")
+                }
+                println("결 제 금 액 : $totalPrice")
+                println("----------------------------------------\n")
+                break
+            }
+            else if(pay.equals("N", true))
+            {
+                println("결제를 취소합니다.")
+                println("메인 화면으로 이동합니다.")
+                println("----------------------------------------\n")
+                Order().firstMenu()
+                break
+            }
+            else
+            {
+                println("잘못된 입력 !!\nY와 N 중에 입력해주세요.")
+            }
+        }
+        return true
+    }
+
     // 메뉴 선택 화면 출력
     fun selectMenu(menuNumber:Int) {
         while (true) {
@@ -40,7 +83,7 @@ open class OrderSystem() {
             }
             println("\n장바구니 내용")
             for (item in cartItem) {
-                println("${item.name} ${item.price}")
+                println("${item.name} | ${item.price}")
             }
             println()
             while(true)
@@ -52,6 +95,7 @@ open class OrderSystem() {
                 println("----------------------------------------")
 
                 val totalPrice = cartItem.sumBy { it.price }
+                val price = cartItem.map { it.price }
                 val selectedName = cartItem.map { it.name }
                 val selectedMutableList = selectedName.joinToString(", ")
                 val choice = readLine()?.toIntOrNull()
@@ -60,33 +104,18 @@ open class OrderSystem() {
                         return
                     }
                     2 -> {
-                        println("현재 가지고 있는 금액을 입력하세요.")
-                        var charge = readLine()?.toIntOrNull()
-                        if(charge != null)
-                        {
-                            print("결제를 진행하시겠습니까? (Y/N) : ")
-                            var pay = readLine().toString()
-                            if(pay == "Y" || pay == "y")
-                            {
-                                println("\n------------ 영 수 증 -----------------")
-                                println("$selectedMutableList")
-                                println("결 제 금 액 : $totalPrice")
-                                println("----------------------------------------\n")
-                                if(charge >= totalPrice)
-                                {
-                                    println("결제 완료! 감사합니다.")
-                                    System.exit(0)
-                                }
+                        val charge = readAmount()
+                        if(checkoutPayment(charge)){
+                            Thread.sleep(3000)
+                            println("결제 진행중.....\n")
+                            if(charge >= totalPrice) {
+                                Thread.sleep(3000)
+                                println("[ 결제 완료 ] 이용해 주셔서 감사합니다!")
+                                System.exit(0)
                             }
-                            else if(pay == "N" || pay == "n")
-                            {
-                                println("결제를 취소합니다.")
-                                println("메인 화면으로 이동합니다.")
-                                println("----------------------------------------\n")
-                            }
-                            else
-                            {
-                                println("??? 잘못된 입력 ????\nY와 N 중에 입력해주세요.")
+                            else {
+                                println("[ 결제 실패 ] 금액이 부족합니다!")
+                                System.exit(0)
                             }
                         }
                     }
@@ -106,4 +135,5 @@ open class OrderSystem() {
             }
         }
     }
+
 }
