@@ -1,5 +1,7 @@
 package com.example.kioskproject
 
+import kotlin.system.exitProcess
+
 class Cart() {
     fun payment() {
 //        totalMenu
@@ -19,5 +21,8 @@ class Cart() {
         } else {
             println("${totalCharge - pocketMoney}원이 부족해 음료를 구매할 수 없습니다.")
         }
+
+        exitProcess(0)
+
     }
 }
