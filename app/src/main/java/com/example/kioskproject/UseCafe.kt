@@ -2,6 +2,7 @@ package com.example.kioskproject
 
 import com.example.kioskproject.data.Item
 import com.example.kioskproject.data.Menu
+import kotlin.system.exitProcess
 
 class UseCafe() {
     fun mainMenu() {
@@ -287,7 +288,9 @@ class UseCafe() {
                         }
                     }
 
-                    7 -> Cart().payment()
+                    7 -> ShoppingCart().cart()
+
+                    8 -> exitProcess(0)
 
                     else -> println(
                         "올바르지 않은 번호입니다. 다시 입력해주세요.\n"
