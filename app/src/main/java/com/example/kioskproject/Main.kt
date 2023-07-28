@@ -5,7 +5,6 @@ import kotlin.system.exitProcess
 
 
 fun main() {
-
     MyPocket().money()
     println("\n안녕하세요? 투썸플레이스입니다.")
     Main().startOrder()
@@ -45,9 +44,9 @@ class Main {
                             try {
                                 when (val useMethodNum = readLine()?.toInt()) {
                                     1, 2 -> {
-                                        method = if (useMethodNum == 1){
+                                        method = if (useMethodNum == 1) {
                                             "매장식사"
-                                        }else{
+                                        } else {
                                             "포장하기"
                                         }
                                         UseCafe().mainMenu()
