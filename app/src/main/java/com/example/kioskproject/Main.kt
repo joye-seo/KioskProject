@@ -3,11 +3,15 @@ package com.example.kioskproject
 import com.example.kioskproject.data.Menu
 import kotlin.system.exitProcess
 
+fun isNumericToX(toCheck: String): Boolean {
+    return toCheck.toIntOrNull() != null
+}
 
 fun main() {
     MyPocket().money()
     println("\n안녕하세요? 투썸플레이스입니다.")
     Main().startOrder()
+
 }
 
 var method: String = ""
@@ -20,15 +24,17 @@ class Main {
     fun startOrder() {
 
         while (true) {
-            try {
-                println(
-                    "주문을 하시려면 1번을 눌러주세요.\n" +
-                            "1 주문하기\n" +
-                            "2 프로그램 종료."
-                )
-                when (readLine()?.toInt()) {
-                    1 -> {
+            println(
+                "주문을 하시려면 1번을 눌러주세요.\n" +
+                        "1 주문하기\n" +
+                        "2 프로그램 종료."
+            )
 
+            val num = readLine()
+
+            if (num?.let { isNumericToX(it) } == true) {
+                when (num.toInt()) {
+                    1 -> {
                         while (true) {
 
                             println("\n매장 이용 방법을 선택해주세요")
@@ -41,17 +47,20 @@ class Main {
                             useMethod.forEachIndexed { index, menu ->
                                 println("${index + 1} ${menu.name}")
                             }
-                            try {
-                                when (val useMethodNum = readLine()?.toInt()) {
+
+                            val useMethodNum = readLine()
+
+                            if (useMethodNum?.let { isNumericToX(it) } == true) {
+
+                                when (useMethodNum.toInt()) {
                                     1, 2 -> {
-                                        method = if (useMethodNum == 1) {
+                                        method = if (useMethodNum.toInt() == 1) {
                                             "매장식사"
                                         } else {
                                             "포장하기"
                                         }
                                         UseCafe().mainMenu()
                                         break
-
                                     }
 
                                     3 -> {
@@ -65,11 +74,6 @@ class Main {
                                     )
 
                                 }
-                            } catch (e: java.lang.NumberFormatException) {
-                                println(
-                                    "메뉴 주문은 숫자만 입력할 수 있습니다.\n"
-                                            + "----------------------------------\n"
-                                )
                             }
                         }
                     }
@@ -84,17 +88,8 @@ class Main {
                                 + "----------------------------------\n"
                     )
                 }
-
-            } catch (e: java.lang.NumberFormatException) {
-                println(
-                    "메뉴 주문은 숫자만 입력할 수 있습니다.\n"
-                            + "----------------------------------\n"
-                )
             }
-
-
         }
-
     }
 }
 
